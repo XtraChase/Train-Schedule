@@ -38,7 +38,7 @@ header {
 
 @media screen and (max-width: 640px) {
   .logo-container {
-    margin: -18px 0px 0px 10px;
+    margin: -20px 0px 0px 10px;
   }
 }
 
@@ -55,8 +55,7 @@ header {
 
 h1 {
   color: white;
-  font-size: 1.5em;
-  margin-top: 18px;
+  margin-top: 25px;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: bold;
@@ -65,14 +64,14 @@ h1 {
 @media screen and (max-width: 640px) {
   h1 {
     font-size: 1em;
-    margin: 20px 50px 0px 0px;
+    margin: 25px 50px 0px 0px;
   }
 }
 
 table {
-  margin: 30px 0px 0px 0px;
+  margin: 30px 0px 0px 5%;
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
 }
 
 td,
@@ -88,12 +87,64 @@ th {
   font-size: 0.8em;
 }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
+tr:hover {
+  color: white;
+  background-color: #167fa6;
 }
 
 form {
-  margin-top: 80px;
+  margin: 50px 0px 0px 0px;
+  float: right;
+}
+
+label {
+  display: table-cell;
+  text-align: right;
+}
+
+input {
+  display: table-cell;
+  margin: 5px 0px 0px 10px;
+  width: 60%;
+  text-align: center;
+}
+
+div.row {
+  display: table-row;
+}
+
+.btn-container {
+  margin: 18px 0px 0px 100px;
+}
+
+.btn {
+  padding: 6px 12px 6px 12px;
+  border-radius: 12px;
+  border-style: none;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 640px) {
+  .btn {
+    margin: 0px 0px 0px 5px;
+    font-size: 0.6em;
+  }
+}
+
+.btn:hover {
+  -webkit-transform: translatey(-1.5px);
+          transform: translatey(-1.5px);
+  -webkit-filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+}
+
+.btn:active {
+  -webkit-transform: translateY(-0.2px);
+          transform: translateY(-0.2px);
+  -webkit-filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.2));
 }
 
 footer {

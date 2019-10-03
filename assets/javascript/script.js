@@ -54,9 +54,6 @@ database.ref().on(
     // storing the snapshot.val() in a variable for convenience
     var sv = snapshot.val();
 
-    // Change the HTML to reflect
-    var row = document.createElement("tr");
-
     $("#trainName").text(sv.train);
     $("#destination").text(sv.destination);
     $("#frequency").text(sv.frequency);
@@ -69,15 +66,34 @@ database.ref().on(
   }
 );
 
-//Create Table
-// var table = "";
-// var rows = 1;
-// var cols = 5;
-// for (var r = 0; r < rows; r++) {
-//   table += "<tr>";
-//   for (var c = 1; c <= cols; c++) {
-//     table += "<td>" + "</td>";
-//   }
-//   table += "</tr>";
-// }
-// $(".schedule").html("<table border=1>" + table + "</table>");
+//dynamic table
+//tutorial source: https://youtu.be/ri5Nqe_IK50
+let trainData = [
+  {
+    train: "Express 27",
+    destination: "Atlanta",
+    frequency: "240:00",
+    arrival: "1:45 PM",
+    away: "30:00"
+  }
+];
+
+window.onload = () => {
+  loadTableData(trainData);
+};
+
+function loadTableData(trainData) {
+  const tableBody = document.getElementById("tableData");
+  let dataHtml = "";
+
+  for (let train of trainData) {
+    dataHtml += `<tr>
+        <td>${train.train}</td>
+        <td>${train.destination}</td>
+        <td>${train.frequency}</td>
+        <td>${train.arrival}</td>
+        <td>${train.away}</td>
+      </tr>`;
+  }
+  tableBody.innerHTML = dataHtml;
+}
