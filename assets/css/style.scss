@@ -12,7 +12,9 @@ body {
 }
 
 header {
-  text-align: center;
+  position: relative;
+  display: grid;
+  align-items: center;
   background-color: rgb(
     9,
     82,
@@ -24,40 +26,52 @@ header {
     rgb(1, 56, 90)
   );
   height: 10vh;
-  padding: 0.01%;
   width: 100%;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
-  @media screen and (max-width: 640px) {
-    text-align: right;
-  }
 }
 
-.logo-container {
-  float: left;
-  margin: -25px 0px 0px 10px;
-  @media screen and (max-width: 640px) {
-    margin: -20px 0px 0px 10px;
-  }
-}
-
-#logo {
-  width: 250px;
-  position: absolute;
-  @media screen and (max-width: 640px) {
-    width: 200px;
-  }
-}
-
-h1 {
+header h1 {
+  margin: auto;
   color: white;
-  margin-top: 25px;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: bold;
   @media screen and (max-width: 640px) {
     font-size: 1em;
-    margin: 25px 50px 0px 0px;
   }
+}
+
+header .logo-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 10px;
+}
+
+#logo {
+  width: 250px;
+  @media screen and (max-width: 640px) {
+    width: 200px;
+  }
+}
+
+header #clock {
+  font-size: 2em;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  margin-right: 20px;
+  @media screen and (max-width: 640px) {
+    font-size: 1.5em;
+  }
+}
+
+#clock {
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
 }
 
 table {
@@ -79,10 +93,28 @@ th {
   font-size: 0.8em;
 }
 
-tr:hover {
-  color: white;
-  background-color: rgb(22, 127, 166);
+// .without_ampm::-webkit-datetime-edit-ampm-field {
+//   display: none;
+// }
+// input[type="time"]::-webkit-clear-button {
+//   -webkit-appearance: none;
+//   -moz-appearance: none;
+//   -o-appearance: none;
+//   -ms-appearance: none;
+//   appearance: none;
+//   margin: -10px;
+// }
+
+a {
+  color: red;
+  cursor: pointer;
+  font-weight: bold;
 }
+
+// tr:hover {
+//   color: white;
+//   background-color: rgb(22, 127, 166);
+// }
 
 form {
   margin: 50px 0px 0px 0px;
@@ -116,7 +148,7 @@ div.row {
   text-shadow: (1px 1px 3px rgba(0, 0, 0, 0.2));
   @media screen and (max-width: 640px) {
     margin: 0px 0px 0px 5px;
-    font-size: 0.6em;
+    font-size: 0.8em;
   }
 }
 
@@ -133,6 +165,8 @@ div.row {
 }
 
 footer {
+  display: grid;
+  place-items: center;
   background-color: rgb(
     9,
     82,
@@ -148,11 +182,9 @@ footer {
   width: 100%;
   bottom: 0;
   left: 0;
-  text-align: center;
   box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.5);
 }
 
 #footer-logo {
-  margin-top: 10px;
   width: 120px;
 }

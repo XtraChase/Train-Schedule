@@ -13,38 +13,46 @@ body {
 }
 
 header {
-  text-align: center;
+  position: relative;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #095276;
   /* For browsers that do not support gradients */
   background-image: -webkit-gradient(linear, left top, right top, from(#167fa6), to(#01385a));
   background-image: linear-gradient(to right, #167fa6, #01385a);
   height: 10vh;
-  padding: 0.01%;
   width: 100%;
   -webkit-box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
           box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
-@media screen and (max-width: 640px) {
-  header {
-    text-align: right;
-  }
-}
-
-.logo-container {
-  float: left;
-  margin: -25px 0px 0px 10px;
+header h1 {
+  margin: auto;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 640px) {
-  .logo-container {
-    margin: -20px 0px 0px 10px;
+  header h1 {
+    font-size: 1em;
   }
+}
+
+header .logo-container {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  margin-left: 10px;
 }
 
 #logo {
   width: 250px;
-  position: absolute;
 }
 
 @media screen and (max-width: 640px) {
@@ -53,19 +61,27 @@ header {
   }
 }
 
-h1 {
-  color: white;
-  margin-top: 25px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: bold;
+header #clock {
+  font-size: 2em;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  margin-right: 20px;
 }
 
 @media screen and (max-width: 640px) {
-  h1 {
-    font-size: 1em;
-    margin: 25px 50px 0px 0px;
+  header #clock {
+    font-size: 1.5em;
   }
+}
+
+#clock {
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
 }
 
 table {
@@ -87,9 +103,10 @@ th {
   font-size: 0.8em;
 }
 
-tr:hover {
-  color: white;
-  background-color: #167fa6;
+a {
+  color: red;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 form {
@@ -129,7 +146,7 @@ div.row {
 @media screen and (max-width: 640px) {
   .btn {
     margin: 0px 0px 0px 5px;
-    font-size: 0.6em;
+    font-size: 0.8em;
   }
 }
 
@@ -148,6 +165,9 @@ div.row {
 }
 
 footer {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
   background-color: #095276;
   /* For browsers that do not support gradients */
   background-image: -webkit-gradient(linear, left top, right top, from(#167fa6), to(#01385a));
@@ -157,13 +177,11 @@ footer {
   width: 100%;
   bottom: 0;
   left: 0;
-  text-align: center;
   -webkit-box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.5);
           box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.5);
 }
 
 #footer-logo {
-  margin-top: 10px;
   width: 120px;
 }
 /*# sourceMappingURL=style.css.map */

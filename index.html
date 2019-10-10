@@ -13,18 +13,21 @@
    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
    <!-- Specific Firebase products we want (Database) -->
    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
-    <link
+   <!-- moment -->
+   <script src="./assets/libraries/moment/moment.min.js"></script> 
+   <link
       href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
       rel="stylesheet"
     />
   </head>
   <body>
     <div class="page-container">
-      <header>
-       <h1>Schedule</h1>
-       <div class="logo-container">
+      <header> 
+        <div class="logo-container">
          <img id="logo"src="./assets/images/amtrain-vector-logo-white.png" alt="">
        </div>
+       <h1>Schedule</h1>
+      <div id="clock"></div>
       </header>
         <table>
           <thead>
@@ -41,24 +44,24 @@
           </table>
 
           <form role="form">
-            <div class="form-group row">
+            <div class="row">
               <label for="train-input">Train:</label>
-              <input class="form-control" id="train-input" type="text" />
+              <input id="train-input" type="text" />
             </div>
-            <div class="form-group row">
+            <div class="row">
               <label for="destination-input">Destination: </label>
-              <input class="form-control" id="destination-input" type="text" />
+              <input id="destination-input" type="text" />
             </div>
-            <div class="form-group row">
+            <div class="row">
               <label for="frequency-input">Frequency: </label>
-              <input class="form-control" id="frequency-input" type="time" />
+              <input class="without_ampm" id="frequency-input" type="text" />
             </div>
-            <div class="form-group row">
+            <div class="row">
               <label for="arrival-input">Next Arrival: </label>
-              <input class="form-control" id="frequency-input" type="time" />
+              <input class="without_ampm" id="arrival-input" type="time" />
             </div>
             <div class="btn-container">
-                <button class="btn btn-default" id="add-user" type="submit">
+                <button class="btn" id="add-user" type="submit">
                   Submit
                 </button>
               </div>

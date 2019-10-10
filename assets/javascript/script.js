@@ -1,3 +1,29 @@
+//Header Clock
+var timeInteger;
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function updateClock() {
+  var t;
+  var clock = document.getElementById("clock");
+  while ((t = moment().format("h:mm"))) {
+    clock.innerHTML = t; // updates time
+    await sleep(1000); // sleeps for 1 second
+
+    //get time converted to integer and store it in timeInteger
+    var s = t;
+    var seg = s.split(":");
+    var hours = parseInt(seg[0]);
+    var minutes = parseInt(seg[1]);
+
+    timeInteger = hours * 60 + minutes;
+    console.log(timeInteger);
+  }
+}
+updateClock();
+
 // Initialize Firebase (YOUR OWN APP)
 var config = {
   apiKey: "AIzaSyCqZhXcOpX3OtWdZ5Jpd1nWgljec0QI0pM",
@@ -15,85 +41,105 @@ firebase.initializeApp(config);
 // Variable to reference the database
 var database = firebase.database();
 
-var train = "";
-var destination = "";
-var frequency = 0;
-var arrival = "";
+var trainName = "";
+var trainDestination = "";
+var arrivalFrequency = 0;
+var arrivalTime;
+var minutesAway;
+
+let trainData = [];
 
 // Capture Button Click
 $("#add-user").on("click", function(event) {
   event.preventDefault();
 
   // Grabbed values from text boxes
-  train = $("#train-input")
+  trainName = $("#train-input")
     .val()
     .trim();
-  destination = $("#destination-input")
+  trainDestination = $("#destination-input")
     .val()
     .trim();
-  frequency = $("#frequency-input")
+  arrivalFrequency = $("#frequency-input")
     .val()
     .trim();
-  arrival = $("#arrival-input")
+  arrivalTime = $("#arrival-input")
     .val()
     .trim();
+
+  //convert arrival time to minutes
+  var s = arrivalTime;
+  var seg = s.split(":");
+  var hours = parseInt(seg[0]);
+  var minutes = parseInt(seg[1]);
+
+  var arrivalInteger = hours * 60 + minutes;
+  var minutesAway = arrivalInteger - timeInteger;
+
+  if (minutesAway < 0) {
+    minutesAway = "Departed";
+  }
 
   // Code for handling the push
-  database.ref().push({
-    train: train,
-    destination: destination,
-    frequency: frequency,
-    arrival: arrival
-  });
+  var trainObject = {
+    train: trainName,
+    destination: trainDestination,
+    frequency: arrivalFrequency,
+    arrival: arrivalTime,
+    away: minutesAway
+  };
+  database.ref().push(trainObject);
 });
 
-// Firebase watcher .on("child_added"
+// Firebase watcher .on("child_added")
 database.ref().on(
   "child_added",
   function(snapshot) {
     // storing the snapshot.val() in a variable for convenience
     var sv = snapshot.val();
 
-    $("#trainName").text(sv.train);
-    $("#destination").text(sv.destination);
-    $("#frequency").text(sv.frequency);
-    $("#arrival").text(sv.arrival);
+    addTrainRow(sv, snapshot.ref.key);
 
     // Handle the errors
   },
   function(errorObject) {
-    console.log("Errors handled: " + errorObject.code);
+    console.log("Error: " + errorObject.code);
+  }
+);
+
+database.ref().on(
+  "child_removed",
+  function(snapshot) {
+    removeTrainRow(snapshot.ref.key);
+  },
+  function(errorObject) {
+    console.log("Error: " + errorObject.code);
   }
 );
 
 //dynamic table
 //tutorial source: https://youtu.be/ri5Nqe_IK50
-let trainData = [
-  {
-    train: "Express 27",
-    destination: "Atlanta",
-    frequency: "240:00",
-    arrival: "1:45 PM",
-    away: "30:00"
-  }
-];
-
-window.onload = () => {
-  loadTableData(trainData);
-};
-
-function loadTableData(trainData) {
+function addTrainRow(element, uniqueID) {
   const tableBody = document.getElementById("tableData");
-  let dataHtml = "";
-
-  for (let train of trainData) {
-    dataHtml += `<tr>
-        <td>${train.train}</td>
-        <td>${train.destination}</td>
-        <td>${train.frequency}</td>
-        <td>${train.arrival}</td>
-        <td>${train.away}</td>
+  let dataHtml = `<tr id=${uniqueID}>
+        <td>${element.train}</td>
+        <td>${element.destination}</td>
+        <td><time>${element.frequency}</time></td>
+        <td><time>${element.arrival}</time></td>
+        <td><time>${element.away}</time></td>
+        <td><a onclick="removeTrainFromDatabase('${uniqueID}');">X</a></td>
       </tr>`;
-  }
-  tableBody.innerHTML = dataHtml;
+  tableBody.innerHTML += dataHtml;
+}
+
+function removeTrainFromDatabase(uniqueID) {
+  database
+    .ref()
+    .child(uniqueID)
+    .remove();
+}
+
+function removeTrainRow(uniqueID) {
+  var trainRow = document.getElementById(uniqueID);
+  trainRow.remove();
 }
